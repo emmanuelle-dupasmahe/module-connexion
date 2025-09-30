@@ -26,52 +26,43 @@ try {
 $message = ''; // Variable pour stocker les messages d'erreur ou de succès
 
 // ----------------------------------------------------
-// 2. TRAITEMENT DU FORMULAIRE D'INSCRIPTION
+// 2. TRAITEMENT DU FORMULAIRE DE CONNEXION
 // ----------------------------------------------------
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Récupérer et nettoyer les données du formulaire
+    
     $login = trim(htmlspecialchars($_POST['login'] ?? ''));
-    $prenom = trim(htmlspecialchars($_POST['prenom'] ?? ''));
-    $nom = trim(htmlspecialchars($_POST['nom'] ?? ''));
     $pwd = $_POST['password'] ?? '';
-    $pwd_confirm = $_POST['password_confirm'] ?? '';
 
-    // Vérification de base des champs
-    if (empty($login) || empty($prenom) || empty($nom) || empty($pwd) || empty($pwd_confirm)) {
-        $message = "<p style='color: red;'>Veuillez remplir tous les champs.</p>";
-    } elseif ($pwd !== $pwd_confirm) {
-        $message = "<p style='color: red;'>Les mots de passe ne correspondent pas.</p>";
+    if (empty($login) || empty($pwd)) {
+        $message = "<p style='color: red;'>Veuillez entrer votre login et votre mot de passe.</p>";
     } else {
-        // A. Vérifier si le login existe déjà
-        $sql_check = "SELECT id FROM utilisateurs WHERE login = :login";
-        $stmt_check = $pdo->prepare($sql_check);
-        $stmt_check->execute(['login' => $login]);
-        
-        if ($stmt_check->rowCount() > 0) {
-            $message = "<p style='color: red;'>Ce login est déjà utilisé. Veuillez en choisir un autre.</p>";
-        } else {
-            // B. Hachage du mot de passe
-            $hashed_password = password_hash($pwd, PASSWORD_DEFAULT);
+        // A. Préparer la requête pour récupérer l'utilisateur par son login
+        $sql_select = "SELECT id, login, prenom, nom, password FROM utilisateurs WHERE login = :login";
+        $stmt = $pdo->prepare($sql_select);
+        $stmt->execute(['login' => $login]);
+        $utilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            // C. Insertion du nouvel utilisateur
-            $sql_insert = "INSERT INTO utilisateurs (login, prenom, nom, password) VALUES (:login, :prenom, :nom, :password)";
-            $stmt_insert = $pdo->prepare($sql_insert);
+        // B. Vérifier si l'utilisateur existe ET si le mot de passe est correct
+        if ($utilisateur && password_verify($pwd, $utilisateur['password'])) {
             
-            try {
-                $stmt_insert->execute([
-                    'login' => $login,
-                    'prenom' => $prenom,
-                    'nom' => $nom,
-                    'password' => $hashed_password
-                ]);
+            // --- CONNEXION RÉUSSIE : INITIALISATION DE LA SESSION ---
+            
+            // 1. Stocker les informations pertinentes dans la session
+            // NOTE: On ne stocke JAMAIS le mot de passe dans la session !
+            $_SESSION['utilisateur'] = [
+                'id' => $utilisateur['id'],
+                'login' => $utilisateur['login'],
+                'prenom' => $utilisateur['prenom'],
+                'nom' => $utilisateur['nom']
+            ];
 
-                $message = "<p style='color: green;'>🎉 Votre compte a été créé avec succès ! Vous pouvez maintenant vous <a href='connexion.php'>connecter</a>.</p>";
-                // Optionnel: vider les champs après succès pour éviter la ré-insertion
-                // $login = $prenom = $nom = ''; 
-                
-            } catch (PDOException $e) {
-                $message = "<p style='color: red;'>Erreur lors de l'inscription : " . $e->getMessage() . "</p>";
-            }
+            // 2. Rediriger vers la page d'accueil (index.php)
+            header('Location: index.php');
+            exit();
+
+        } else {
+            // Échec de la connexion
+            $message = "<p style='color: red;'>Login ou mot de passe incorrect.</p>";
         }
     }
 }
@@ -82,45 +73,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscription | Module de Connexion</title>
-    <link rel="stylesheet" href="style.css"> <style>
-        body { font-family: Arial, sans-serif; margin: 0; background-color: #f4f4f4; display: flex; flex-direction: column; min-height: 100vh; }
+    <title>Connexion | Module de Connexion</title>
+    <style>
+        /* Styles de base et mise en page (réutilisés) */
+        body { font-family: Arial, Helvetica, sans-serif, sans-serif; margin: 0; background-color: #f4f4f4; display: flex; flex-direction: column; min-height: 100vh; }
         .contenu-principal { flex-grow: 1; padding: 20px; }
         
-        /* Styles de la navigation (réutilisés de index.php) */
+        /* Styles de la navigation et du footer (réutilisés) */
         header { background-color: #e0e0e0; padding: 10px 20px; border-bottom: 2px solid #ccc; display: flex; gap: 10px; }
         .navigation a { background-color: #007bff; color: yellow; text-decoration: none; padding: 10px; border-radius: 5px; display: inline-block; font-weight: bold; text-align: center; min-width: 80px; transition: background-color 0.3s; }
         .navigation a:hover { background-color: #0056b3; }
         
-        /* Style du footer (réutilisé de index.php) */
         footer { background-color: #333; color: #fff; padding: 15px 20px; text-align: center; margin-top: auto; }
         footer nav { display: flex; justify-content: center; gap: 15px; }
         
         /* Style spécifique au formulaire */
         .form-container { 
-            max-width: 400px; 
+            max-width: 350px; 
             margin: 50px auto; 
             color: #0056b3;
             padding: 20px; 
             background: red; 
             border-radius: 8px; 
-            box-shadow: 0 0 10px rgba(101, 9, 9, 0.1); 
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); 
         }
-        .form-container h1 { text-align: center; color: #efeb0fff; }
+        .form-container h1 { text-align: center; color: #eaf10de3; }
         .form-container label { display: block; margin: 10px 0 5px; font-weight: bold; }
         .form-container input[type="text"], 
         .form-container input[type="password"] {
             width: 100%;
             padding: 10px;
             margin-bottom: 20px;
-            background: yellow;
             border: 1px solid #ccc;
+            background: yellow;
             border-radius: 4px;
             box-sizing: border-box;
         }
         .form-container input[type="submit"] {
-            background-color: #1e17e9ff; /* bleu pour l'action d'inscription */
-            color:yellow;
+            background-color: #007bff; /* Bleu pour l'action de connexion */
+            color: yellow;
             padding: 10px 15px;
             border: none;
             border-radius: 4px;
@@ -129,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             font-size: 1.1em;
         }
         .form-container input[type="submit"]:hover {
-            background-color: #201e7eff;
+            background-color: #0056b3;
         }
     </style>
 </head>
@@ -145,31 +136,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <div class="contenu-principal">
         <div class="form-container">
-            <h1>Créer un compte</h1>
+            <h1>Connexion</h1>
 
             <?php echo $message; // Afficher les messages de retour ?>
 
-            <form action="inscription.php" method="post">
+            <form action="connexion.php" method="post">
                 
                 <label for="login">Login :</label>
                 <input type="text" id="login" name="login" required 
-                       value="<?php echo htmlspecialchars($login ?? ''); ?>">
-
-                <label for="prenom">Prénom :</label>
-                <input type="text" id="prenom" name="prenom" required
-                       value="<?php echo htmlspecialchars($prenom ?? ''); ?>">
-
-                <label for="nom">Nom :</label>
-                <input type="text" id="nom" name="nom" required
-                       value="<?php echo htmlspecialchars($nom ?? ''); ?>">
+                       value="<?php echo htmlspecialchars($_POST['login'] ?? ''); ?>">
 
                 <label for="password">Mot de passe :</label>
                 <input type="password" id="password" name="password" required>
 
-                <label for="password_confirm">Confirme le mot de passe :</label>
-                <input type="password" id="password_confirm" name="password_confirm" required>
-
-                <input type="submit" value="S'inscrire">
+                <input type="submit" value="Se connecter">
+                
+                <p style="text-align: center; margin-top: 15px;"><a href="inscription.php">Pas encore de compte ? Inscris-toi.</a></p>
             </form>
         </div>
     </div> 

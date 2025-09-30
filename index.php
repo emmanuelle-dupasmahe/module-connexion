@@ -75,6 +75,7 @@ $loginUtilisateur = $estConnecte ? htmlspecialchars($_SESSION['utilisateur']['lo
             background-color: red; 
             padding: 20px;
             text-align: center;
+            border-radius: 5px;
             margin-bottom: 20px;
         }
 
@@ -86,10 +87,12 @@ $loginUtilisateur = $estConnecte ? htmlspecialchars($_SESSION['utilisateur']['lo
         
         /* 4. Style pour le reste du contenu */
         .bienvenue { 
-            margin-top: 20px; 
+            margin-top: 20px;
+            color:yellow; 
             padding: 15px; 
-            border: 1px solid #ddd; 
-            background-color: white; 
+            border: 1px solid #ddd;
+            border-radius: 5px; 
+            background-color: red; 
         }
         
         /* 5. Footer (Nouveau) */
@@ -135,21 +138,14 @@ $loginUtilisateur = $estConnecte ? htmlspecialchars($_SESSION['utilisateur']['lo
             <h2>Information du site</h2>
             <?php if ($estConnecte): ?>
                 <p>
-                    Bonjour **<?php echo $loginUtilisateur; ?>** ! Vous êtes maintenant connecté.
+                    Bonjour **<?php echo $loginUtilisateur; ?>** ! Tu es maintenant connecté.
                 </p>
             <?php else: ?>
                 <p>
-                    Veuillez vous **connecter** ou **créer votre compte** pour accéder aux fonctionnalités.
+                    Clique sur Connexion ou Inscription.
                 </p>
             <?php endif; ?>
             
-            <p>Ce site comprendra les pages suivantes :</p>
-            <ul>
-                <li>**index.php** : Page d'accueil (celle-ci)</li>
-                <li>**inscription.php** : Pour créer un nouveau compte.</li>
-                <li>**connexion.php** : Pour se connecter.</li>
-                <li>**profil.php** : Pour modifier ses informations personnelles.</li>
-            </ul>
         </div>
     </div> <footer>
         <nav class="navigation">
