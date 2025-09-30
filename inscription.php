@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'password' => $hashed_password
                 ]);
 
-                $message = "<p style='color: green;'>🎉 Votre compte a été créé avec succès ! Vous pouvez maintenant vous <a href='connexion.php'>connecter</a>.</p>";
+                $message = "<p style='color: yellow;'>🎉 Ton compte a été créé avec succès ! Tu peux maintenant te <a href='connexion.php'>connecter</a>.</p>";
                 // Optionnel: vider les champs après succès pour éviter la ré-insertion
                 // $login = $prenom = $nom = ''; 
                 
