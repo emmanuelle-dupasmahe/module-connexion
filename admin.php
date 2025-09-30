@@ -1,5 +1,5 @@
 <?php
-// Démarrer la session
+
 session_start();
 
 // ----------------------------------------------------
@@ -38,7 +38,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'supprimer' && isset($_GET['id
     
     // Empêcher la suppression du compte admin lui-même
     if ($id_a_supprimer === $_SESSION['utilisateur']['id']) {
-        $message = "<p style='color: red;'>⚠️ Vous ne pouvez pas supprimer votre propre compte administrateur.</p>";
+        $message = "<p style='color: red;'>⚠️ Tu ne peux pas supprimer ton propre compte administrateur.</p>";
     } else {
         $sql_delete = "DELETE FROM utilisateurs WHERE id = :id";
         $stmt_delete = $pdo->prepare($sql_delete);
