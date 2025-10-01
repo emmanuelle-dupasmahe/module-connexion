@@ -362,11 +362,11 @@ $loginUtilisateur = $current_login;
                 <input type="text" id="login" name="login" required 
                        value="<?php echo htmlspecialchars($current_login); ?>">
 
-                <label for="prenom" data-tooltip="Ton prénom. Tu peux le mettre à jour.">Prénom :</label>
+                <label for="prenom" data-tooltip="Ton prénom. Tu peux le changer ici.">Prénom :</label>
                 <input type="text" id="prenom" name="prenom" required
                        value="<?php echo htmlspecialchars($current_prenom); ?>">
 
-                <label for="nom" data-tooltip="Ton nom de famille. Tu peux le mettre à jour.">Nom :</label>
+                <label for="nom" data-tooltip="Ton nom de famille. Tu peux le changer ici.">Nom :</label>
                 <input type="text" id="nom" name="nom" required
                        value="<?php echo htmlspecialchars($current_nom); ?>">
                 
@@ -374,13 +374,13 @@ $loginUtilisateur = $current_login;
                     <h2>Changer le mot de passe</h2>
                     <p style="font-size: 0.9em; color: #e3cf1eff;">* Remplis ces champs uniquement si tu souhaites changer de mot de passe.</p>
 
-                    <label for="current_password" data-tooltip="Ton mot de passe secret actuel pour confirmer.">Mot de passe actuel :</label>
+                    <label for="current_password" data-tooltip="Ton mot de passe secret.">Mot de passe actuel :</label>
                     <input type="password" id="current_password" name="current_password">
                     
-                    <label for="new_password" data-tooltip="Ton tout nouveau mot de passe secret.">Nouveau mot de passe :</label>
+                    <label for="new_password" data-tooltip="Ton nouveau mot de passe secret.">Nouveau mot de passe :</label>
                     <input type="password" id="new_password" name="new_password">
 
-                    <label for="new_password_confirm" data-tooltip="Écris le nouveau mot de passe une deuxième fois.">Confirme le nouveau mot de passe :</label>
+                    <label for="new_password_confirm" data-tooltip="Écris ton nouveau mot de passe encore une fois.">Confirme le nouveau mot de passe :</label>
                     <input type="password" id="new_password_confirm" name="new_password_confirm">
                 </div>
 
@@ -396,7 +396,7 @@ $loginUtilisateur = $current_login;
             <?php if ($loginUtilisateur === 'admin'): ?>
                 <a href="admin.php" data-tooltip="Cette page est réservée au super-utilisateur.">Admin</a>
             <?php endif; ?>
-            <a href="deconnexion.php" data-tooltip="Dis au revoir et ferme ta session.">Déconnexion</a>
+            <a href="deconnexion.php" data-tooltip="Tu pars ! Clique ici pour te déconnecter en toute sécurité.">Déconnexion</a>
         </nav>
         <p style="margin-top: 10px; font-size: 0.8em;">&copy; <?php echo date("Y"); ?> Module de Connexion.</p>
     </footer>
