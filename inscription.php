@@ -1,5 +1,5 @@
 <?php
-// Démarrer la session
+
 session_start();
 
 // Redirection si l'utilisateur est déjà connecté
@@ -8,9 +8,9 @@ if (isset($_SESSION['utilisateur'])) {
     exit();
 }
 
-// ----------------------------------------------------
-// 1. PARAMÈTRES ET CONNEXION À LA BASE DE DONNÉES
-// ----------------------------------------------------
+
+//paramètres et connexion à la base de données
+
 $host = 'localhost'; 
 $dbname = 'moduleconnexion';
 $username = 'root'; 
@@ -25,11 +25,11 @@ try {
 
 $message = ''; // Variable pour stocker les messages d'erreur ou de succès
 
-// ----------------------------------------------------
-// 2. TRAITEMENT DU FORMULAIRE D'INSCRIPTION
-// ----------------------------------------------------
+
+// traitement du formulaire d'inscription
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Récupérer et nettoyer les données du formulaire
+    // Récupére et nettoie les données du formulaire
     $login = trim(htmlspecialchars($_POST['login'] ?? ''));
     $prenom = trim(htmlspecialchars($_POST['prenom'] ?? ''));
     $nom = trim(htmlspecialchars($_POST['nom'] ?? ''));
@@ -38,22 +38,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Vérification de base des champs
     if (empty($login) || empty($prenom) || empty($nom) || empty($pwd) || empty($pwd_confirm)) {
-        $message = "<p style='color: red;'>Veuillez remplir tous les champs.</p>";
+        $message = "<p style='color: red;'>Il faut remplir tous les champs.</p>";
     } elseif ($pwd !== $pwd_confirm) {
         $message = "<p style='color: red;'>Les mots de passe ne correspondent pas.</p>";
     } else {
-        // A. Vérifier si le login existe déjà
+        // Vérifie si le login existe déjà
         $sql_check = "SELECT id FROM utilisateurs WHERE login = :login";
         $stmt_check = $pdo->prepare($sql_check);
         $stmt_check->execute(['login' => $login]);
         
         if ($stmt_check->rowCount() > 0) {
-            $message = "<p style='color: red;'>Ce login est déjà utilisé. Veuillez en choisir un autre.</p>";
+            $message = "<p style='color: red;'>Ce login est déjà utilisé. Tu dois en choisir un autre.</p>";
         } else {
-            // B. Hachage du mot de passe
+            // Hachage du mot de passe
             $hashed_password = password_hash($pwd, PASSWORD_DEFAULT);
 
-            // C. Insertion du nouvel utilisateur
+            // Insertion du nouvel utilisateur
             $sql_insert = "INSERT INTO utilisateurs (login, prenom, nom, password) VALUES (:login, :prenom, :nom, :password)";
             $stmt_insert = $pdo->prepare($sql_insert);
             
@@ -66,8 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ]);
 
                 $message = "<p style='color: yellow;'>🎉 Ton compte a été créé avec succès ! Tu peux maintenant te <a href='connexion.php'>connecter</a>.</p>";
-                // Optionnel: vider les champs après succès pour éviter la ré-insertion
-                // $login = $prenom = $nom = ''; 
+                
                 
             } catch (PDOException $e) {
                 $message = "<p style='color: red;'>Erreur lors de l'inscription : " . $e->getMessage() . "</p>";
@@ -87,16 +86,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         body { font-family: Arial, sans-serif; margin: 0; background-color: #f4f4f4; display: flex; flex-direction: column; min-height: 100vh; }
         .contenu-principal { flex-grow: 1; padding: 20px; }
         
-        /* Styles de la navigation (réutilisés de index.php) */
+        
         header { background-color: #e0e0e0; padding: 10px 20px; border-bottom: 2px solid #ccc; display: flex; gap: 10px; }
-        .navigation a { background-color: #007bff; color: yellow; text-decoration: none; padding: 10px; border-radius: 5px; display: inline-block; font-weight: bold; text-align: center; min-width: 80px; transition: background-color 0.3s; }
+        
+
+        .navigation a { 
+            background-color: #007bff; 
+            color: yellow; 
+            text-decoration: none; 
+            padding: 10px; 
+            border-radius: 5px; 
+            display: inline-block; 
+            font-weight: bold; 
+            text-align: center; 
+            min-width: 80px; 
+            transition: background-color 0.3s; 
+            position: relative; /* CLÉ pour l'infobulle */
+        }
         .navigation a:hover { background-color: #0056b3; }
         
-        /* Style du footer (réutilisé de index.php) */
+        
         footer { background-color: #037430; color: #fff; padding: 15px 20px; text-align: center; margin-top: auto; }
         footer nav { display: flex; justify-content: center; gap: 15px; }
         
-        /* Style spécifique au formulaire */
+        /* Style du formulaire */
         .form-container { 
             max-width: 400px; 
             margin: 50px auto; 
@@ -119,7 +132,152 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             box-sizing: border-box;
         }
         .form-container input[type="submit"] {
-            background-color: #1e17e9ff; /* bleu pour l'action d'inscription */
+            background-color: #1e17e9ff; 
+            color:yellow;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.1em;
+        }
+        .form-container input[type="submit"]:hover {
+            background-color: #201e7eff;
+        }
+
+        .navigation a::after {
+            content: attr(data-tooltip); 
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%); 
+            background-color: #5cb85c; 
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px; 
+            font-size: 0.8em;
+            white-space: nowrap; 
+            z-index: 10; 
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        /* 2. Style de la Flèche */
+        .navigation a::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            border-width: 5px;
+            border-style: solid;
+            z-index: 10;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        
+        /* 3. Positionnement pour le HEADER (Infobulle en BAS) */
+        header .navigation a::after {
+            bottom: auto; 
+            top: 130%;
+        }
+        
+        header .navigation a::before {
+            bottom: auto; 
+            top: 130%;
+            border-color: transparent transparent #5cb85c transparent; 
+            transform: translateX(-50%) translateY(-13px); 
+        }
+        
+        /* 4. Positionnement pour le FOOTER (Infobulle en HAUT) */
+        footer .navigation a::after {
+            bottom: 150%; 
+            top: auto; 
+        }
+
+        footer .navigation a::before {
+            bottom: 150%; 
+            top: auto;
+            border-color: #5cb85c transparent transparent transparent; 
+            transform: translateX(-50%) translateY(8px); 
+        }
+
+        /* 5. Affichage au survol */
+        .navigation a:hover::after, footer .navigation a:hover::after {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .navigation a:hover::before, footer .navigation a:hover::before {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* 6. FIX : Décalage du premier lien (Accueil) */
+        .navigation a:first-child::after,
+        .navigation a:first-child::before {
+            transform: translateX(-20%); 
+        }
+        
+        /* FOOTER */
+        footer { background-color: #037430; color: #fff; padding: 15px 20px; text-align: center; margin-top: auto; }
+        footer nav { display: flex; justify-content: center; gap: 15px; }
+        
+        /* Style du formulaire (inchangé) */
+        .form-container { 
+            max-width: 400px; 
+            margin: 50px auto; 
+            color: #0056b3;
+            padding: 20px; 
+            background: red; 
+            border-radius: 8px; 
+            box-shadow: 0 0 10px rgba(101, 9, 9, 0.1); 
+        }
+        .form-container h1 { text-align: center; color: #efeb0fff; }
+        .form-container label 
+        { 
+            display: block; 
+            margin: 10px 0 5px; 
+            font-weight: bold; 
+            position: relative; /* permet l'affichage de l'infobulle */
+            cursor: help;
+        }
+
+        .form-container label::after 
+        {
+        content: attr(data-tooltip);
+        position: absolute;
+        top: -35px; /* Positionnement au-dessus du label */
+        left: 10px;
+    
+        background-color: #20d03aff; /* Nouvelle couleur pour les distinguer, par exemple Orange */
+        color: white;
+        padding: 6px 10px;
+        border-radius: 6px; 
+        font-size: 0.75em;
+        white-space: nowrap; 
+        z-index: 10; 
+    
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        .form-container label:hover::after {
+        visibility: visible;
+        opacity: 1;
+        }
+        .form-container input[type="text"], 
+        .form-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            background: yellow;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-container input[type="submit"] {
+            background-color: #1e17e9ff; 
             color:yellow;
             padding: 10px 15px;
             border: none;
@@ -137,9 +295,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <header>
         <nav class="navigation">
-            <a href="index.php">Accueil</a>
-            <a href="connexion.php">Connexion</a>
-            <a href="inscription.php">Inscription</a>
+            <a href="index.php" data-tooltip="C'est la maison ! Clique ici pour revenir au début.">Accueil</a>
+            <a href="connexion.php" data-tooltip="J'ai déjà mon mot de passe ! Je rentre dans le site.">Connexion</a>
+            <a href="inscription.php" data-tooltip="C'est ma première fois ! Je crée mon compte ici.">Inscription</a>
         </nav>
     </header>
 
@@ -151,22 +309,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <form action="inscription.php" method="post">
                 
-                <label for="login">Login :</label>
+                <label for="login" data-tooltip="Ton nom d'utilisateur, celui que tu utiliseras pour te connecter !">Login :</label>
                 <input type="text" id="login" name="login" required 
-                       value="<?php echo htmlspecialchars($login ?? ''); ?>">
+                        value="<?php echo htmlspecialchars($login ?? ''); ?>"> 
 
-                <label for="prenom">Prénom :</label>
+                <label for="prenom" data-tooltip="Écris ton prénom ici.">Prénom :</label>
                 <input type="text" id="prenom" name="prenom" required
-                       value="<?php echo htmlspecialchars($prenom ?? ''); ?>">
+                        value="<?php echo htmlspecialchars($prenom ?? ''); ?>">
 
-                <label for="nom">Nom :</label>
+                <label for="nom" data-tooltip="Écris ton nom de famille ici.">Nom :</label>
                 <input type="text" id="nom" name="nom" required
-                       value="<?php echo htmlspecialchars($nom ?? ''); ?>">
+                        value="<?php echo htmlspecialchars($nom ?? ''); ?>"> 
 
-                <label for="password">Mot de passe :</label>
-                <input type="password" id="password" name="password" required>
+                <label for="password" data-tooltip="Choisis un mot de passe secret (garde-le bien !)"> Mot de passe :</label>
+                <input type="password" id="password" name="password" required >
 
-                <label for="password_confirm">Confirme le mot de passe :</label>
+                <label for="password_confirm" data-tooltip="Écris ton mot de passe secret une deuxième fois.">Confirme le mot de passe :</label>
                 <input type="password" id="password_confirm" name="password_confirm" required>
 
                 <input type="submit" value="S'inscrire">
@@ -176,9 +334,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <footer>
         <nav class="navigation">
-            <a href="index.php">Accueil</a>
-            <a href="connexion.php">Connexion</a>
-            <a href="inscription.php">Inscription</a>
+            <a href="index.php" data-tooltip="La page de départ ! Clique ici pour rentrer.">Accueil</a>
+            <a href="connexion.php" data-tooltip="J'ai déjà mon mot de passe.">Connexion</a>
+            <a href="inscription.php" data-tooltip="Je suis ici, je crée mon compte !">Inscription</a>
         </nav>
         <p style="margin-top: 10px; font-size: 0.8em;">&copy; <?php echo date("Y"); ?> Module de Connexion.</p>
     </footer>
