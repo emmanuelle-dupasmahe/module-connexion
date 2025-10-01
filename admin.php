@@ -3,7 +3,7 @@
 session_start();
 
 
-// VÉRIFICATION DES DROITS D'ADMINISTRATION (PROTECTION)
+
 
 // Redirection si l'utilisateur n'est pas connecté ou n'est pas l'admin
 if (!isset($_SESSION['utilisateur']) || $_SESSION['utilisateur']['login'] !== 'admin') {
@@ -12,7 +12,6 @@ if (!isset($_SESSION['utilisateur']) || $_SESSION['utilisateur']['login'] !== 'a
 }
 
 
-//  PARAMÈTRES ET CONNEXION À LA BASE DE DONNÉES
 
 $host = 'localhost'; 
 $dbname = 'moduleconnexion';
@@ -28,7 +27,7 @@ try {
 
 $message = ''; // Variable pour stocker les messages de retour 
 
-// LA LISTE DES UTILISATEURS
+// la liste des utilisateurs
 
 $sql_users = "SELECT id, login, prenom, nom FROM utilisateurs ORDER BY id";
 $stmt_users = $pdo->query($sql_users);
@@ -46,14 +45,101 @@ $loginUtilisateur = $_SESSION['utilisateur']['login'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administration | Liste des utilisateurs</title>
     <style>
-        /* Styles réutilisés de index.php */
+        
         body { font-family: Arial, sans-serif; margin: 0; background-color: #f4f4f4; display: flex; flex-direction: column; min-height: 100vh; }
         .contenu-principal { flex-grow: 1; padding: 20px; }
         
         header { background-color: #e0e0e0; padding: 10px 20px; border-bottom: 2px solid #ccc; display: flex; gap: 10px; }
         .navigation a { background-color: #007bff; color: yellow; text-decoration: none; padding: 10px; border-radius: 5px; display: inline-block; font-weight: bold; text-align: center; min-width: 80px; transition: background-color 0.3s; }
         .navigation a:hover { background-color: #0056b3; }
+        .navigation a { 
+            background-color: #007bff; 
+            color: yellow; 
+            text-decoration: none; 
+            padding: 10px; 
+            border-radius: 5px; 
+            display: inline-block; 
+            font-weight: bold; 
+            text-align: center; 
+            min-width: 80px; 
+            transition: background-color 0.3s; 
+            position: relative; /* CLÉ pour l'infobulle */
+        }
+        .navigation a:hover { background-color: #0056b3; }
         
+        
+        .navigation a::after {
+            content: attr(data-tooltip); 
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%); 
+            background-color: #5cb85c; 
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px; 
+            font-size: 0.8em;
+            white-space: nowrap; 
+            z-index: 10; 
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        /* 2. Style de la Flèche */
+        .navigation a::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            border-width: 5px;
+            border-style: solid;
+            z-index: 10;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        
+        /* 3. Positionnement pour le HEADER (Infobulle en BAS) */
+        header .navigation a::after {
+            bottom: auto; 
+            top: 130%;
+        }
+        
+        header .navigation a::before {
+            bottom: auto; 
+            top: 130%;
+            border-color: transparent transparent #5cb85c transparent; 
+            transform: translateX(-50%) translateY(-13px); 
+        }
+        
+        
+        footer .navigation a::after {
+            bottom: 150%; 
+            top: auto; 
+        }
+
+        footer .navigation a::before {
+            bottom: 150%; 
+            top: auto;
+            border-color: #5cb85c transparent transparent transparent; 
+            transform: translateX(-50%) translateY(8px); 
+        }
+
+        
+        .navigation a:hover::after, footer .navigation a:hover::after {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .navigation a:hover::before, footer .navigation a:hover::before {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        
+        .navigation a:first-child::after,
+        .navigation a:first-child::before {
+            transform: translateX(-20%); 
+        }
         footer { background-color: #037430; color: #fff; padding: 15px 20px; text-align: center; margin-top: auto; }
         footer nav { display: flex; justify-content: center; gap: 15px; }
 
@@ -68,10 +154,10 @@ $loginUtilisateur = $_SESSION['utilisateur']['login'];
 
     <header>
         <nav class="navigation">
-            <a href="index.php">Accueil</a>
-            <a href="profil.php">Profil</a>
-            <a href="admin.php">Admin</a>
-            <a href="deconnexion.php">Déconnexion</a>
+            <a href="index.php" data-tooltip="C'est la maison ! Clique ici pour revenir au début.">Accueil</a>
+            <a href="profil.php" data-tooltip="Modifie ton nom ou ton mot de passe.">Profil</a>
+            <a href="admin.php" data-tooltip="Tu es sur la page super-secrète d'administration.">Admin</a>
+            <a href="deconnexion.php" data-tooltip="Tu pars ! Clique ici pour te déconnecter en toute sécurité.">Déconnexion</a>
         </nav>
     </header>
 
@@ -110,10 +196,10 @@ $loginUtilisateur = $_SESSION['utilisateur']['login'];
 
     <footer>
         <nav class="navigation">
-            <a href="index.php">Accueil</a>
-            <a href="profil.php">Profil</a>
-            <a href="admin.php">Admin</a>
-            <a href="deconnexion.php">Déconnexion</a>
+            <a href="index.php" data-tooltip="C'est la maison ! Clique ici pour revenir au début.">Accueil</a>
+            <a href="profil.php" data-tooltip="Modifie ton nom ou ton mot de passe.">Profil</a>
+            <a href="admin.php" data-tooltip="Tu es sur la page super-secrète d'administration.">Admin</a>
+            <a href="deconnexion.php" data-tooltip="Tu pars ! Clique ici pour te déconnecter en toute sécurité.">Déconnexion</a>
         </nav>
         <p style="margin-top: 10px; font-size: 0.8em;">&copy; <?php echo date("Y"); ?> Module de Connexion.</p>
     </footer>
