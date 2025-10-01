@@ -150,7 +150,7 @@ $loginUtilisateur = $current_login;
         .navigation a { background-color: #007bff; color: yellow; text-decoration: none; padding: 10px; border-radius: 5px; display: inline-block; font-weight: bold; text-align: center; min-width: 80px; transition: background-color 0.3s; }
         .navigation a:hover { background-color: #0056b3; }
         
-        footer { background-color: #333; color: #fff; padding: 15px 20px; text-align: center; margin-top: auto; }
+        footer { background-color: #037430; color: #fff; padding: 15px 20px; text-align: center; margin-top: auto; }
         footer nav { display: flex; justify-content: center; gap: 15px; }
         
         /* Style spécifique au formulaire de profil */

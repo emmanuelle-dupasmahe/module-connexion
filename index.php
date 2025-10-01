@@ -1,14 +1,14 @@
 <?php
-// 1. Démarrer la session PHP
+// Démarrer la session PHP
 session_start();
 
-// 2. Paramètres de connexion à la base de données
+// Paramètres de connexion à la base de données
 $host = 'localhost'; 
 $dbname = 'moduleconnexion';
 $username = 'root'; // À adapter si nécessaire
 $password = ''; // À adapter si nécessaire
 
-// 3. Tentative de connexion à la base de données
+// Tentative de connexion à la base de données
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -16,7 +16,7 @@ try {
     die("Erreur de connexion à la base de données : " . $e->getMessage());
 }
 
-// 4. Déterminer l'état de la connexion utilisateur
+// Déterminer l'état de la connexion utilisateur
 $estConnecte = isset($_SESSION['utilisateur']);
 $loginUtilisateur = $estConnecte ? htmlspecialchars($_SESSION['utilisateur']['login']) : 'Invité';
 ?>
@@ -32,7 +32,7 @@ $loginUtilisateur = $estConnecte ? htmlspecialchars($_SESSION['utilisateur']['lo
             font-family: Arial, sans-serif; 
             margin: 0; 
             background-color: #f4f4f4;
-            min-height: 100vh; /* Permet au footer de rester en bas (nécessite body et html à 100% de hauteur) */
+            min-height: 100vh; /* le footer rester en bas (nécessite body et html à 100% de hauteur) */
             display: flex;
             flex-direction: column;
         }
@@ -42,20 +42,20 @@ $loginUtilisateur = $estConnecte ? htmlspecialchars($_SESSION['utilisateur']['lo
             margin: 20px;
         }
         
-        /* 1. Header (Navigation) */
+        /* Header (Navigation) */
         header { 
-            background-color: #e0e0e0; 
+            background-color: #e0e0e0;;  
             padding: 10px 20px; 
             border-bottom: 2px solid #ccc; 
             display: flex; 
             gap: 10px; 
         }
         
-        /* 2. Style des liens de navigation (commun au header et au footer) */
+        /* Style des liens de navigation (commun au header et au footer) */
         .navigation a { 
             /* Bouton : Carré bleu */
-            background-color: #007bff; /* Bleu */
-            color: yellow; /* Texte jaune */
+            background-color: #007bff;
+            color: yellow; 
             text-decoration: none; 
             padding: 10px; 
             border-radius: 5px; 
@@ -70,7 +70,7 @@ $loginUtilisateur = $estConnecte ? htmlspecialchars($_SESSION['utilisateur']['lo
             background-color: #0056b3; /* Bleu plus foncé au survol */
         }
 
-        /* 3. Style du titre principal dans le rectangle rouge */
+        /* Style du titre principal dans le rectangle rouge */
         .titre-accueil {
             background-color: red; 
             padding: 20px;
@@ -85,7 +85,7 @@ $loginUtilisateur = $estConnecte ? htmlspecialchars($_SESSION['utilisateur']['lo
             font-size: 2.5em; 
         }
         
-        /* 4. Style pour le reste du contenu */
+        /* Style pour le reste du contenu */
         .bienvenue { 
             margin-top: 20px;
             color:yellow; 
@@ -95,9 +95,9 @@ $loginUtilisateur = $estConnecte ? htmlspecialchars($_SESSION['utilisateur']['lo
             background-color: red; 
         }
         
-        /* 5. Footer (Nouveau) */
+        
         footer {
-            background-color: #333; /* Fond gris foncé pour le pied de page */
+            background-color: #037430; 
             color: #fff;
             padding: 15px 20px;
             text-align: center;

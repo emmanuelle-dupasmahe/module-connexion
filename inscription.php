@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .navigation a:hover { background-color: #0056b3; }
         
         /* Style du footer (réutilisé de index.php) */
-        footer { background-color: #333; color: #fff; padding: 15px 20px; text-align: center; margin-top: auto; }
+        footer { background-color: #037430; color: #fff; padding: 15px 20px; text-align: center; margin-top: auto; }
         footer nav { display: flex; justify-content: center; gap: 15px; }
         
         /* Style spécifique au formulaire */
