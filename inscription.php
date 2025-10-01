@@ -162,7 +162,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             transition: opacity 0.3s, visibility 0.3s;
         }
 
-        /* 2. Style de la Flèche */
+       
         .navigation a::before {
             content: '';
             position: absolute;
@@ -175,7 +175,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             transition: opacity 0.3s, visibility 0.3s;
         }
         
-        /* 3. Positionnement pour le HEADER (Infobulle en BAS) */
+       
         header .navigation a::after {
             bottom: auto; 
             top: 130%;
@@ -188,7 +188,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             transform: translateX(-50%) translateY(-13px); 
         }
         
-        /* 4. Positionnement pour le FOOTER (Infobulle en HAUT) */
+        
         footer .navigation a::after {
             bottom: 150%; 
             top: auto; 
@@ -201,7 +201,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             transform: translateX(-50%) translateY(8px); 
         }
 
-        /* 5. Affichage au survol */
+        
         .navigation a:hover::after, footer .navigation a:hover::after {
             visibility: visible;
             opacity: 1;
@@ -212,17 +212,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             opacity: 1;
         }
 
-        /* 6. FIX : Décalage du premier lien (Accueil) */
+        
         .navigation a:first-child::after,
         .navigation a:first-child::before {
             transform: translateX(-20%); 
         }
         
-        /* FOOTER */
+        
         footer { background-color: #037430; color: #fff; padding: 15px 20px; text-align: center; margin-top: auto; }
         footer nav { display: flex; justify-content: center; gap: 15px; }
         
-        /* Style du formulaire (inchangé) */
+        /* Style du formulaire */
         .form-container { 
             max-width: 400px; 
             margin: 50px auto; 
