@@ -343,7 +343,7 @@ $loginUtilisateur = $current_login;
             <a href="index.php" data-tooltip="C'est la maison ! Clique ici pour revenir au début.">Accueil</a>
             <a href="profil.php" data-tooltip="Modifie ton nom ou ton mot de passe ici.">Profil</a>
             <?php if ($loginUtilisateur === 'admin'): ?>
-                <a href="admin.php" data-tooltip="Attention ! Cette page est réservée au super-utilisateur.">Admin</a>
+                <a href="admin.php" data-tooltip="Le bureau du chef ! Ici, tu vois tous les membres.">Admin</a>
             <?php endif; ?>
             <a href="deconnexion.php" data-tooltip="Tu pars ! Clique ici pour te déconnecter en toute sécurité.">Déconnexion</a>
         </nav>
@@ -394,7 +394,7 @@ $loginUtilisateur = $current_login;
             <a href="index.php" data-tooltip="C'est la maison ! Clique ici pour revenir au début.">Accueil</a>
             <a href="profil.php" data-tooltip="Modifie ton nom ou ton mot de passe ici.">Profil</a>
             <?php if ($loginUtilisateur === 'admin'): ?>
-                <a href="admin.php" data-tooltip="Cette page est réservée au super-utilisateur.">Admin</a>
+                <a href="admin.php" data-tooltip="Le bureau du chef ! Ici, tu vois tous les membres.">Admin</a>
             <?php endif; ?>
             <a href="deconnexion.php" data-tooltip="Tu pars ! Clique ici pour te déconnecter en toute sécurité.">Déconnexion</a>
         </nav>

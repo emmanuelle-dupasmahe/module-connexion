@@ -156,7 +156,7 @@ $loginUtilisateur = $_SESSION['utilisateur']['login'];
         <nav class="navigation">
             <a href="index.php" data-tooltip="C'est la maison ! Clique ici pour revenir au début.">Accueil</a>
             <a href="profil.php" data-tooltip="Modifie ton nom ou ton mot de passe.">Profil</a>
-            <a href="admin.php" data-tooltip="Tu es sur la page super-secrète d'administration.">Admin</a>
+            <a href="admin.php" data-tooltip="Le bureau du chef ! Ici, tu vois tous les membres.">Admin</a>
             <a href="deconnexion.php" data-tooltip="Tu pars ! Clique ici pour te déconnecter en toute sécurité.">Déconnexion</a>
         </nav>
     </header>
@@ -198,7 +198,7 @@ $loginUtilisateur = $_SESSION['utilisateur']['login'];
         <nav class="navigation">
             <a href="index.php" data-tooltip="C'est la maison ! Clique ici pour revenir au début.">Accueil</a>
             <a href="profil.php" data-tooltip="Modifie ton nom ou ton mot de passe.">Profil</a>
-            <a href="admin.php" data-tooltip="Tu es sur la page super-secrète d'administration.">Admin</a>
+            <a href="admin.php" data-tooltip="Le bureau du chef ! Ici, tu vois tous les membres.">Admin</a>
             <a href="deconnexion.php" data-tooltip="Tu pars ! Clique ici pour te déconnecter en toute sécurité.">Déconnexion</a>
         </nav>
         <p style="margin-top: 10px; font-size: 0.8em;">&copy; <?php echo date("Y"); ?> Module de Connexion.</p>

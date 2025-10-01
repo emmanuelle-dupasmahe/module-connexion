@@ -225,9 +225,9 @@ $loginUtilisateur = $estConnecte ? htmlspecialchars($_SESSION['utilisateur']['lo
         
         <a href="deconnexion.php" data-tooltip="C'est l'heure de partir. N'oublie pas de te déconnecter !">Déconnexion</a>
     <?php else: ?>
-        <a href="connexion.php" data-tooltip="J'ai déjà mon mot de passe ! Je rentre dans le site.">Connexion</a>
+        <a href="connexion.php" data-tooltip="Tu as déjà ton mot de passe ! Tu rentres dans le site.">Connexion</a>
         
-        <a href="inscription.php" data-tooltip="C'est ma première fois ! Je crée mon compte ici.">Inscription</a>
+        <a href="inscription.php" data-tooltip="C'est ta première fois ! Tu crées ton compte ici.">Inscription</a>
     <?php endif; ?>
 </nav>
     </header>
@@ -263,9 +263,9 @@ $loginUtilisateur = $estConnecte ? htmlspecialchars($_SESSION['utilisateur']['lo
                 
                 <a href="deconnexion.php" data-tooltip="Dis au revoir et ferme ta session.">Déconnexion</a>
             <?php else: ?>
-                <a href="connexion.php" data-tooltip="J'ai déjà mon mot de passe ! Je peux rentrer dans le site.">Connexion</a>
+                <a href="connexion.php" data-tooltip="Tu as déjà ton mot de passe ! Tu peux rentrer dans le site.">Connexion</a>
                 
-                <a href="inscription.php" data-tooltip="C'est ma première fois ! Je crée mon compte ici.">Inscription</a>
+                <a href="inscription.php" data-tooltip="C'est ta première fois ! Tu crées ton compte ici.">Inscription</a>
             <?php endif; ?>
         </nav>
         <p style="margin-top: 10px; font-size: 0.8em;">&copy; <?php echo date("Y"); ?> Module de Connexion. Tous droits réservés.</p>

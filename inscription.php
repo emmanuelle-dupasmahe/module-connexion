@@ -296,8 +296,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <header>
         <nav class="navigation">
             <a href="index.php" data-tooltip="C'est la maison ! Clique ici pour revenir au début.">Accueil</a>
-            <a href="connexion.php" data-tooltip="J'ai déjà mon mot de passe ! Je rentre dans le site.">Connexion</a>
-            <a href="inscription.php" data-tooltip="C'est ma première fois ! Je crée mon compte ici.">Inscription</a>
+            <a href="connexion.php" data-tooltip="Tu as déjà ton mot de passe ! Tu rentres dans le site.">Connexion</a>
+            <a href="inscription.php" data-tooltip="C'est ta première fois ! Tu crées ton compte ici.">Inscription</a>
         </nav>
     </header>
 
@@ -335,8 +335,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <footer>
         <nav class="navigation">
             <a href="index.php" data-tooltip="C'est la maison ! Clique ici pour revenir au début.">Accueil</a>
-            <a href="connexion.php" data-tooltip="J'ai déjà mon mot de passe.">Connexion</a>
-            <a href="inscription.php" data-tooltip="Je suis ici, je crée mon compte !">Inscription</a>
+            <a href="connexion.php" data-tooltip="Tu as déjà ton mot de passe.">Connexion</a>
+            <a href="inscription.php" data-tooltip="Tu es ici, tu crées ton compte !">Inscription</a>
         </nav>
         <p style="margin-top: 10px; font-size: 0.8em;">&copy; <?php echo date("Y"); ?> Module de Connexion.</p>
     </footer>
