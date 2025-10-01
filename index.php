@@ -75,7 +75,7 @@ $loginUtilisateur = $estConnecte ? htmlspecialchars($_SESSION['utilisateur']['lo
             background-color: red; 
             padding: 20px;
             text-align: center;
-            border-radius: 5px;
+            border-radius: 10px;
             margin-bottom: 20px;
         }
 
@@ -91,7 +91,7 @@ $loginUtilisateur = $estConnecte ? htmlspecialchars($_SESSION['utilisateur']['lo
             color:yellow; 
             padding: 15px; 
             border: 1px solid #ddd;
-            border-radius: 5px; 
+            border-radius: 10px; 
             background-color: red; 
         }
         
