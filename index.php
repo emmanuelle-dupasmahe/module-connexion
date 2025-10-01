@@ -5,8 +5,8 @@ session_start();
 // Paramètres de connexion à la base de données
 $host = 'localhost'; 
 $dbname = 'moduleconnexion';
-$username = 'root'; // À adapter si nécessaire
-$password = ''; // À adapter si nécessaire
+$username = 'root'; 
+$password = ''; 
 
 // Tentative de connexion à la base de données
 try {
@@ -52,7 +52,7 @@ $loginUtilisateur = $estConnecte ? htmlspecialchars($_SESSION['utilisateur']['lo
         }
         
         /* Style des liens de navigation (commun au header et au footer) */
-        .navigation a { 
+        .navigation a {
             /* Bouton : Carré bleu */
             background-color: #007bff;
             color: yellow; 
@@ -63,11 +63,109 @@ $loginUtilisateur = $estConnecte ? htmlspecialchars($_SESSION['utilisateur']['lo
             font-weight: bold;
             text-align: center;
             min-width: 80px; 
-            transition: background-color 0.3s; /* Transition pour un effet plus doux */
+            transition: background-color 0.3s; 
+            position: relative; 
+        }
+
+        .navigation a:hover {
+        background-color: #0056b3;
+        }
+        /* Style de l'infobulle */
+        .navigation a::after {
+        /* Récupère le texte de l'attribut data-tooltip pour le contenu */
+        content: attr(data-tooltip); 
+    
+        /* Position et apparence */
+        position: absolute;
+        bottom: auto; /* Place l'infobulle en-dessous du lien */
+        top: 130%;
+        left: 50%;
+        transform: translateX(-50%); /* Centre l'infobulle horizontalement */
+    
+       
+        background-color: #5cb85c; 
+        color: white;
+        padding: 8px 12px;
+        border-radius: 8px; 
+        font-size: 0.8em;
+        white-space: nowrap; /* Empêche le texte de se couper */
+        z-index: 10; /* S'assure qu'elle est au-dessus des autres éléments */
+    
+        /* Rendre l'infobulle invisible par défaut */
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        /* Affichage de l'infobulle au survol (hover) */
+        .navigation a:hover::after {
+        visibility: visible;
+        opacity: 1;
+        }
+
+        /* Flèche sous l'infobulle */
+        .navigation a::before {
+        content: '';
+        position: absolute;
+        bottom: auto; 
+        top: 130%;
+        left: 50%;
+        transform: translateX(-50%) translateY(8px); 
+    
+        border-width: 5px;
+        border-style: solid;
+        border-color: #5cb85c transparent transparent transparent; 
+        transform: translateX(-50%) translateY(-13px); /* Ajuste la position de la flèche */ 
+    
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.3s, visibility 0.3s;
+        z-index: 10;
+        }
+
+        /* Affichage de la flèche au survol */
+        .navigation a:hover::before {
+        visibility: visible;
+        opacity: 1;
+        }
+
+        .navigation a:first-child::after,
+        .navigation a:first-child::before {
+        /* Décale l'infobulle de 30 pixels vers la droite */
+        transform: translateX(-20%); 
+        }
+
+        footer .navigation a::after {
+            bottom: 150%; /* Positionne l'infobulle au-dessus du lien */
+            top: auto; 
+        }
+
+        footer .navigation a::before {
+            bottom: 150%; 
+            top: auto;
+            border-color: #5cb85c transparent transparent transparent; 
+            transform: translateX(-50%) translateY(8px); 
         }
         
-        .navigation a:hover {
-            background-color: #0056b3; /* Bleu plus foncé au survol */
+        .navigation a:hover::after, footer .navigation a:hover::after {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .navigation a:hover::before, footer .navigation a:hover::before {
+            visibility: visible;
+            opacity: 1;
+        }
+
+    
+        .navigation a:first-child::after,
+        .navigation a:first-child::before {
+            transform: translateX(-20%); 
+        }
+    
+        footer .navigation a:first-child::after,
+        footer .navigation a:first-child::before {
+             transform: translateX(-30%); 
         }
 
         /* Style du titre principal dans le rectangle rouge */
@@ -109,24 +207,29 @@ $loginUtilisateur = $estConnecte ? htmlspecialchars($_SESSION['utilisateur']['lo
             justify-content: center;
             gap: 15px;
         }
+        
     </style>
 </head>
 <body>
 
     <header>
         <nav class="navigation">
-            <a href="index.php">Accueil</a>
-            <?php if ($estConnecte): ?>
-                <a href="profil.php">Profil</a>
-                <?php if ($loginUtilisateur === 'admin'): ?>
-                    <a href="admin.php">Admin</a>
-                <?php endif; ?>
-                <a href="deconnexion.php">Déconnexion</a>
-            <?php else: ?>
-                <a href="connexion.php">Connexion</a>
-                <a href="inscription.php">Inscription</a>
-            <?php endif; ?>
-        </nav>
+    <a href="index.php" data-tooltip="C'est la maison ! Clique ici pour revenir au début.">Accueil</a>
+    
+    <?php if ($estConnecte): ?>
+        <a href="profil.php" data-tooltip="Ta page secrète. Vois tes infos ici !">Profil</a>
+        
+        <?php if ($loginUtilisateur === 'admin'): ?>
+            <a href="admin.php" data-tooltip="Le bureau du chef ! Ici, tu vois tous les membres.">Admin</a>
+        <?php endif; ?>
+        
+        <a href="deconnexion.php" data-tooltip="C'est l'heure de partir. N'oublie pas de te déconnecter !">Déconnexion</a>
+    <?php else: ?>
+        <a href="connexion.php" data-tooltip="J'ai déjà mon mot de passe ! Je rentre dans le site.">Connexion</a>
+        
+        <a href="inscription.php" data-tooltip="C'est ma première fois ! Je crée mon compte ici.">Inscription</a>
+    <?php endif; ?>
+</nav>
     </header>
     
     <div class="contenu-principal">
@@ -149,20 +252,25 @@ $loginUtilisateur = $estConnecte ? htmlspecialchars($_SESSION['utilisateur']['lo
         </div>
     </div> <footer>
         <nav class="navigation">
-            <a href="index.php">Accueil</a>
+            <a href="index.php" data-tooltip="La page de départ ! Clique ici pour rentrer.">Accueil</a>
+            
             <?php if ($estConnecte): ?>
-                <a href="profil.php">Profil</a>
+                <a href="profil.php" data-tooltip="Regarde tes points et tes informations secrètes.">Profil</a>
+                
                 <?php if ($loginUtilisateur === 'admin'): ?>
-                    <a href="admin.php">Admin</a>
+                    <a href="admin.php" data-tooltip="L'endroit où seul le chef peut aller !">Admin</a>
                 <?php endif; ?>
-                <a href="deconnexion.php">Déconnexion</a>
+                
+                <a href="deconnexion.php" data-tooltip="Dis au revoir et ferme ta session.">Déconnexion</a>
             <?php else: ?>
-                <a href="connexion.php">Connexion</a>
-                <a href="inscription.php">Inscription</a>
+                <a href="connexion.php" data-tooltip="J'ai déjà mon mot de passe ! Je rentre dans le site.">Connexion</a>
+                
+                <a href="inscription.php" data-tooltip="C'est ma première fois ! Je crée mon compte ici.">Inscription</a>
             <?php endif; ?>
         </nav>
         <p style="margin-top: 10px; font-size: 0.8em;">&copy; <?php echo date("Y"); ?> Module de Connexion. Tous droits réservés.</p>
     </footer>
+
 
 </body>
 </html>
