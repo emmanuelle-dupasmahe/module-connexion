@@ -334,7 +334,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <footer>
         <nav class="navigation">
-            <a href="index.php" data-tooltip="La page de départ ! Clique ici pour rentrer.">Accueil</a>
+            <a href="index.php" data-tooltip="C'est la maison ! Clique ici pour revenir au début.">Accueil</a>
             <a href="connexion.php" data-tooltip="J'ai déjà mon mot de passe.">Connexion</a>
             <a href="inscription.php" data-tooltip="Je suis ici, je crée mon compte !">Inscription</a>
         </nav>

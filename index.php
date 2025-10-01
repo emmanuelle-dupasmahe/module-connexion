@@ -171,10 +171,10 @@ $loginUtilisateur = $estConnecte ? htmlspecialchars($_SESSION['utilisateur']['lo
         /* Style du titre principal dans le rectangle rouge */
         .titre-accueil {
             background-color: red; 
-            padding: 20px;
+            padding: 60px 25px;
             text-align: center;
             border-radius: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 40px;
         }
 
         .titre-accueil h1 {
@@ -187,7 +187,7 @@ $loginUtilisateur = $estConnecte ? htmlspecialchars($_SESSION['utilisateur']['lo
         .bienvenue { 
             margin-top: 20px;
             color:yellow; 
-            padding: 15px; 
+            padding: 25px; 
             border: 1px solid #ddd;
             border-radius: 10px; 
             background-color: red; 
@@ -240,7 +240,7 @@ $loginUtilisateur = $estConnecte ? htmlspecialchars($_SESSION['utilisateur']['lo
         <div class="bienvenue">
             <h2>Information du site</h2>
             <?php if ($estConnecte): ?>
-                <p>
+                <p style="font-size: 1.3em;">
                     Bonjour **<?php echo $loginUtilisateur; ?>** ! Tu es maintenant connecté.
                 </p>
             <?php else: ?>
@@ -252,10 +252,10 @@ $loginUtilisateur = $estConnecte ? htmlspecialchars($_SESSION['utilisateur']['lo
         </div>
     </div> <footer>
         <nav class="navigation">
-            <a href="index.php" data-tooltip="La page de départ ! Clique ici pour rentrer.">Accueil</a>
+            <a href="index.php" data-tooltip="C'est la maison ! Clique ici pour revenir au début.">Accueil</a>
             
             <?php if ($estConnecte): ?>
-                <a href="profil.php" data-tooltip="Regarde tes points et tes informations secrètes.">Profil</a>
+                <a href="profil.php" data-tooltip="Regarde tes informations secrètes.">Profil</a>
                 
                 <?php if ($loginUtilisateur === 'admin'): ?>
                     <a href="admin.php" data-tooltip="L'endroit où seul le chef peut aller !">Admin</a>
@@ -263,7 +263,7 @@ $loginUtilisateur = $estConnecte ? htmlspecialchars($_SESSION['utilisateur']['lo
                 
                 <a href="deconnexion.php" data-tooltip="Dis au revoir et ferme ta session.">Déconnexion</a>
             <?php else: ?>
-                <a href="connexion.php" data-tooltip="J'ai déjà mon mot de passe ! Je rentre dans le site.">Connexion</a>
+                <a href="connexion.php" data-tooltip="J'ai déjà mon mot de passe ! Je peux rentrer dans le site.">Connexion</a>
                 
                 <a href="inscription.php" data-tooltip="C'est ma première fois ! Je crée mon compte ici.">Inscription</a>
             <?php endif; ?>

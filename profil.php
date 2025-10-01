@@ -341,7 +341,7 @@ $loginUtilisateur = $current_login;
     <header>
         <nav class="navigation">
             <a href="index.php" data-tooltip="C'est la maison ! Clique ici pour revenir au début.">Accueil</a>
-            <a href="profil.php" data-tooltip="C'est ta page ! Modifie ton nom ou ton mot de passe ici.">Profil</a>
+            <a href="profil.php" data-tooltip="Modifie ton nom ou ton mot de passe ici.">Profil</a>
             <?php if ($loginUtilisateur === 'admin'): ?>
                 <a href="admin.php" data-tooltip="Attention ! Cette page est réservée au super-utilisateur.">Admin</a>
             <?php endif; ?>
@@ -392,7 +392,7 @@ $loginUtilisateur = $current_login;
     <footer>
          <nav class="navigation">
             <a href="index.php" data-tooltip="C'est la maison ! Clique ici pour revenir au début.">Accueil</a>
-            <a href="profil.php" data-tooltip="C'est ta page ! Modifie ton nom ou ton mot de passe ici.">Profil</a>
+            <a href="profil.php" data-tooltip="Modifie ton nom ou ton mot de passe ici.">Profil</a>
             <?php if ($loginUtilisateur === 'admin'): ?>
                 <a href="admin.php" data-tooltip="Cette page est réservée au super-utilisateur.">Admin</a>
             <?php endif; ?>
