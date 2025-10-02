@@ -1,8 +1,8 @@
 <?php
-// Démarrer la session PHP
+// Démarre la session PHP
 session_start();
 
-// Paramètres de connexion à la base de données
+// connexion à la base de données
 $host = 'localhost'; 
 $dbname = 'moduleconnexion';
 $username = 'root'; 
@@ -16,7 +16,7 @@ try {
     die("Erreur de connexion à la base de données : " . $e->getMessage());
 }
 
-// Déterminer l'état de la connexion utilisateur
+// Détermine l'état de la connexion utilisateur
 $estConnecte = isset($_SESSION['utilisateur']);
 $loginUtilisateur = $estConnecte ? htmlspecialchars($_SESSION['utilisateur']['login']) : 'Invité';
 ?>
@@ -71,7 +71,9 @@ $loginUtilisateur = $estConnecte ? htmlspecialchars($_SESSION['utilisateur']['lo
             <?php endif; ?>
             
         </div>
-    </div> <footer>
+    </div> 
+    
+    <footer>
         <nav class="navigation">
             <a href="index.php" data-tooltip="C'est la maison ! Clique ici pour revenir au début.">Accueil</a>
             
