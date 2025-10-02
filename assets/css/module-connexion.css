@@ -376,9 +376,9 @@ th {
 
 /*responsive*/
 .table-responsive {
-    /* Ceci est la clé : permet le défilement horizontal si le contenu dépasse */
+    /* permet le défilement horizontal si le contenu dépasse */
     overflow-x: auto; 
-    /* Ajouté pour s'assurer que le conteneur ne déborde pas de la vue */
+    /* pour s'assurer que le conteneur ne déborde pas de la vue */
     width: 100%; 
     margin-top: 20px;
 }
@@ -386,17 +386,17 @@ th {
 /* --- MEDIA QUERY pour les Petits Écrans (smartphones et tablettes étroites) --- */
 @media (max-width: 700px) {
 
-    /* Appliquer ces changements à la navigation dans le header ET le footer */
+    /* Appliquer ces changements à la navigation dans le header et le footer */
     .navigation {
         /* Les liens s'empilent verticalement au lieu d'horizontalement */
         flex-direction: column; 
-        /* Étirer les liens pour qu'ils prennent toute la largeur du conteneur */
+        /* Étire les liens pour qu'ils prennent toute la largeur du conteneur */
         align-items: stretch; 
         /* Réduire l'espace entre les liens empilés */
         gap: 0; 
     }
     
-    /* Assurer que chaque lien est un bloc pour occuper toute la largeur */
+    /* chaque lien est un bloc pour occuper toute la largeur */
     .navigation a {
         display: block;
         /* Ajoute une petite marge en bas pour les séparer visuellement */
