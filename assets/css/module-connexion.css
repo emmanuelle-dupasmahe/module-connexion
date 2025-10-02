@@ -375,6 +375,13 @@ th {
 }
 
 /*responsive*/
+.table-responsive {
+    /* Ceci est la clé : permet le défilement horizontal si le contenu dépasse */
+    overflow-x: auto; 
+    /* Ajouté pour s'assurer que le conteneur ne déborde pas de la vue */
+    width: 100%; 
+    margin-top: 20px;
+}
 
 /* --- MEDIA QUERY pour les Petits Écrans (smartphones et tablettes étroites) --- */
 @media (max-width: 700px) {

@@ -64,6 +64,7 @@ $loginUtilisateur = $_SESSION['utilisateur']['login'];
         <?php echo $message; ?>
         
         <h2>Liste des Utilisateurs</h2>
+        <div class="table-responsive">
         <table>
             <thead>
                 <tr>
