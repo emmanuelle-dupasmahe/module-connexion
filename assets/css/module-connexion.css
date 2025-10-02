@@ -1,0 +1,375 @@
+body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            background-color: #f4f4f4;
+            min-height: 100vh; /* le footer rester en bas (nécessite body et html à 100% de hauteur) */
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .contenu-principal {
+            flex-grow: 1; /* Permet au contenu de prendre tout l'espace restant */
+            margin: 20px;
+        }
+        
+        
+        header { 
+            background-color: #e0e0e0;;  
+            padding: 10px 20px; 
+            border-bottom: 2px solid #ccc; 
+            display: flex; 
+            gap: 10px; 
+        }
+        
+        /* Style des liens de navigation (commun au header et au footer) */
+        .navigation a {
+            /* Bouton : Carré bleu */
+            background-color: #007bff;
+            color: yellow; 
+            text-decoration: none; 
+            padding: 10px; 
+            border-radius: 5px; 
+            display: inline-block;
+            font-weight: bold;
+            text-align: center;
+            min-width: 80px; 
+            transition: background-color 0.3s; 
+            position: relative; 
+        }
+
+        .navigation a:hover {
+        background-color: #0056b3;
+        }
+        /* Style de l'infobulle */
+        .navigation a::after {
+        /* Récupère le texte de l'attribut data-tooltip pour le contenu */
+        content: attr(data-tooltip); 
+    
+        /* Position et apparence */
+        position: absolute;
+        bottom: auto; /* Place l'infobulle en-dessous du lien */
+        top: 130%;
+        left: 50%;
+        transform: translateX(-50%); /* Centre l'infobulle horizontalement */
+    
+       
+        background-color: #5cb85c; 
+        color: white;
+        padding: 8px 12px;
+        border-radius: 8px; 
+        font-size: 0.8em;
+        white-space: nowrap; /* Empêche le texte de se couper */
+        z-index: 10; /* S'assure qu'il est au-dessus des autres éléments */
+    
+        
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        
+        .navigation a:hover::after {
+        visibility: visible;
+        opacity: 1;
+        }
+
+       
+        .navigation a::before {
+        content: '';
+        position: absolute;
+        bottom: auto; 
+        top: 130%;
+        left: 50%;
+        transform: translateX(-50%) translateY(8px); 
+    
+        border-width: 5px;
+        border-style: solid;
+        border-color: #5cb85c transparent transparent transparent; 
+        transform: translateX(-50%) translateY(-13px); /* Ajuste la position de la flèche */ 
+    
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.3s, visibility 0.3s;
+        z-index: 10;
+        }
+
+        
+        .navigation a:hover::before {
+        visibility: visible;
+        opacity: 1;
+        }
+
+        .navigation a:first-child::after,
+        .navigation a:first-child::before {
+        /* Décale l'infobulle de 30 pixels vers la droite */
+        transform: translateX(-20%); 
+        }
+
+        footer .navigation a::after {
+            bottom: 150%; /* Positionne l'infobulle au-dessus du lien */
+            top: auto; 
+        }
+
+        footer .navigation a::before {
+            bottom: 150%; 
+            top: auto;
+            border-color: #5cb85c transparent transparent transparent; 
+            transform: translateX(-50%) translateY(8px); 
+        }
+        
+        .navigation a:hover::after, footer .navigation a:hover::after {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .navigation a:hover::before, footer .navigation a:hover::before {
+            visibility: visible;
+            opacity: 1;
+        }
+
+    
+        .navigation a:first-child::after,
+        .navigation a:first-child::before {
+            transform: translateX(-20%); 
+        }
+    
+        footer .navigation a:first-child::after,
+        footer .navigation a:first-child::before {
+             transform: translateX(-30%); 
+        }
+
+        .titre-accueil {
+            background-color: red; 
+            padding: 25px; 
+            border-radius: 10px;
+            margin-bottom: 40px;
+            min-height: 180px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 20px; /* Espace entre le logo et le titre */
+        }
+
+
+        .logo-titre {
+            max-height: 120px; 
+            width: auto; 
+            height: auto;
+            flex-shrink: 0;
+        }
+
+
+        .titre-accueil h1 {
+            color: yellow; 
+            margin: 0; 
+            font-size: 2.5em;
+            flex-grow: 0; 
+        }
+        
+        .bienvenue { 
+            margin-top: 20px;
+            color:yellow; 
+            padding: 25px; 
+            border: 1px solid #ddd;
+            border-radius: 10px; 
+            background-color: red; 
+        }
+        
+        
+        footer {
+            background-color: #037430; 
+            color: #fff;
+            padding: 15px 20px;
+            text-align: center;
+            margin-top: auto; /* Pousse le footer en bas */
+        }
+        
+        footer nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        /* Styles spécifiques au formulaire d'inscription/connexion */
+.form-container { 
+    max-width: 400px; 
+    margin: 50px auto; 
+    color: #0056b3;
+    padding: 20px; 
+    background: red; 
+    border-radius: 8px; 
+    box-shadow: 0 0 10px rgba(101, 9, 9, 0.1); 
+}
+.form-container h1 { 
+    text-align: center; 
+    color: #efeb0fff; 
+}
+.form-container label { 
+    display: block; 
+    margin: 10px 0 5px; 
+    font-weight: bold; 
+    position: relative; 
+    cursor: help;
+}
+
+/* Infobulle pour les labels du formulaire */
+.form-container label::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: -35px;
+    left: 10px;
+    
+    background-color: #20d03aff;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 6px; 
+    font-size: 0.75em;
+    white-space: nowrap; 
+    z-index: 10; 
+    
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+.form-container label:hover::after {
+    visibility: visible;
+    opacity: 1;
+}
+
+.form-container input[type="text"], 
+.form-container input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    background: yellow;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-container input[type="submit"] {
+    background-color: #1e17e9ff; 
+    color:yellow;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1.1em;
+}
+
+.form-container input[type="submit"]:hover {
+    background-color: #201e7eff;
+}
+
+/* Vous pouvez aussi retirer les styles du footer et du header s'ils sont déjà 
+   dans le module-connexion.css, mais je les laisse ci-dessous pour sécurité */
+
+footer { 
+    background-color: #037430; 
+    color: #fff; 
+    padding: 15px 20px; 
+    text-align: center; 
+    margin-top: auto; 
+}
+
+footer nav { 
+    display: flex; 
+    justify-content: center; 
+    gap: 15px; 
+}
+/* Styles Spécifiques à la page Admin (Tableaux) */
+
+h1, h2 { 
+    color: blue; /* Surcharge pour les titres h1 et h2 */
+    text-align: center; 
+}
+h2 {
+    /* Si vous voulez que h2 soit aligné à gauche sous le h1, vous pouvez retirer le 'text-align: center;' */
+    text-align: left; 
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+h1 {
+    margin-bottom: 30px;
+}
+
+/* Style de la table */
+table { 
+    width: 100%;
+    border-collapse: separate; /* Permet d'utiliser border-spacing */
+    margin-top: 20px; 
+    border-spacing: 0 5px; /* Espace vertical entre les lignes */
+    box-shadow: 0 0 20px rgba(11, 7, 214, 0.1); 
+    border-radius: 10px; 
+    overflow: hidden;
+}
+
+/* Style des cellules et des en-têtes */
+th, td { 
+    border: 2px solid #1b1be2ff; /* Bordure bleu/violet foncé */
+    background-color: yellow; 
+    padding: 12px; 
+    text-align: left; 
+    /* Appliquer le border-radius uniquement aux TH et TD pour un effet arrondi global */
+}
+/* Style spécifique pour les coins de la table (optionnel si vous utilisez border-radius sur TH/TD) */
+table thead tr:first-child th:first-child { border-top-left-radius: 10px; }
+table thead tr:first-child th:last-child { border-top-right-radius: 10px; }
+table tbody tr:last-child td:first-child { border-bottom-left-radius: 10px; }
+table tbody tr:last-child td:last-child { border-bottom-right-radius: 10px; }
+
+
+/* Style des en-têtes de colonnes */
+th { 
+    background-color: red; 
+    color: yellow; 
+}
+
+/* Styles Spécifiques au Formulaire de Profil */
+
+
+.form-container { 
+    max-width: 500px; 
+    margin: 30px auto;
+    padding: 25px;
+}
+
+.form-container h1 { 
+    color: #dceb0ce7; /* Couleur du titre H1 (si elle est différente) */
+    margin-bottom: 20px; 
+}
+
+/* Style des champs de texte pour le profil (input:not([type="submit"])) */
+.form-container input:not([type="submit"]) {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: yellow; 
+}
+
+/* Bouton de soumission du profil */
+.form-container input[type="submit"] {
+    background-color: #2f37d8ff; /* Bleu plus foncé/violet */
+    color: yellow;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1.1em;
+    margin-top: 20px; /* Espace au-dessus du bouton */
+}
+.form-container input[type="submit"]:hover {
+    background-color: #08165fff;
+}
+
+/* Séparateur pour la section mot de passe */
+.section-separator {
+    border-top: 1px solid #f1e50bff;
+    padding-top: 20px;
+    margin-top: 20px;
+}
