@@ -278,7 +278,7 @@ footer nav {
     justify-content: center; 
     gap: 15px; 
 }
-/* Styles Spécifiques à la page Admin (Tableaux) */
+/*  Admin (Tableaux) */
 
 h1, h2 { 
     color: blue; /* Surcharge pour les titres h1 et h2 */
@@ -326,7 +326,7 @@ th {
     color: yellow; 
 }
 
-/* Styles Spécifiques au Formulaire de Profil */
+/* Profil (formulaire)*/
 
 
 .form-container { 
@@ -372,4 +372,45 @@ th {
     border-top: 1px solid #f1e50bff;
     padding-top: 20px;
     margin-top: 20px;
+}
+
+/*responsive*/
+
+/* --- MEDIA QUERY pour les Petits Écrans (smartphones et tablettes étroites) --- */
+@media (max-width: 700px) {
+
+    /* Appliquer ces changements à la navigation dans le header ET le footer */
+    .navigation {
+        /* Les liens s'empilent verticalement au lieu d'horizontalement */
+        flex-direction: column; 
+        /* Étirer les liens pour qu'ils prennent toute la largeur du conteneur */
+        align-items: stretch; 
+        /* Réduire l'espace entre les liens empilés */
+        gap: 0; 
+    }
+    
+    /* Assurer que chaque lien est un bloc pour occuper toute la largeur */
+    .navigation a {
+        display: block;
+        /* Ajoute une petite marge en bas pour les séparer visuellement */
+        margin-bottom: 5px; 
+    }
+    
+    /* Le conteneur du titre */
+    .titre-accueil {
+        /* Le logo et le titre s'empilent verticalement sur petits écrans */
+        flex-direction: column; 
+        text-align: center;
+        padding: 15px;
+    }
+    
+    .logo-titre {
+        /* Réduire la taille du logo si nécessaire sur mobile */
+        max-height: 80px; 
+    }
+    
+    .titre-accueil h1 {
+        /* Réduire la taille du titre */
+        font-size: 1.8em;
+    }
 }
